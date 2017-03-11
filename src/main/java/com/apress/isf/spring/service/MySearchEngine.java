@@ -1,7 +1,7 @@
-package com.apress.isf.java.service;
+package com.apress.isf.spring.service;
 
-import com.apress.isf.java.model.Document;
-import com.apress.isf.java.model.Type;
+import com.apress.isf.spring.model.Document;
+import com.apress.isf.spring.model.Type;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package com.apress.isf.java.service;
+package com.apress.isf.spring.service;
 
-import com.apress.isf.java.model.Document;
-import com.apress.isf.java.model.Type;
+import com.apress.isf.spring.model.Document;
+import com.apress.isf.spring.model.Type;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,7 +18,7 @@ public class MySearchEngineTest {
 
     @Before
     public void setup(){
-        context = new ClassPathXmlApplicationContext("META-INF/spring/mydocuments-context.xml");
+        context = new ClassPathXmlApplicationContext("META-INF/spring/mysearchengine-context.xml");
         engine = context.getBean(SearchEngine.class);
         documentType = context.getBean(Type.class);
     }

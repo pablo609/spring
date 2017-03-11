@@ -1,4 +1,4 @@
-package com.apress.isf.java.model;
+package com.apress.isf.spring.model;
 
 
 import java.time.LocalDate;

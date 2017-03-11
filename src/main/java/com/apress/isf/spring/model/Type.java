@@ -1,4 +1,4 @@
-package com.apress.isf.java.model;
+package com.apress.isf.spring.model;
 
 public class Type {
     private String name;
