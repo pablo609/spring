@@ -1,91 +1,85 @@
 package com.apress.isf.spring.config;
 
-import com.apress.isf.spring.data.DocumentDAO;
-import com.apress.isf.spring.data.DocumentRepository;
+import com.apress.isf.spring.data.TypeDataDAO;
 import com.apress.isf.spring.model.Document;
 import com.apress.isf.spring.model.Type;
-import com.apress.isf.spring.service.SearchEngine;
-import com.apress.isf.spring.service.SearchEngineService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.*;
+import org.springframework.context.annotation.PropertySource;
 
 @Configuration
+@PropertySource("user.properties")
+@ComponentScan("com.apress.isf.spring")
 public class MyDocumentsContext {
-    private Map<String, Document> documents = new HashMap<>();
-    private Map<String, Type> types = new HashMap<>();
+    private static final Logger log = LoggerFactory.getLogger(MyDocumentsContext.class);
+
+    @Autowired
+    private TypeDataDAO typeDataDAO;
 
     @Bean
-    public Type webType(){
-        return getTypeFromMap("web");
+    public Document doc1() {
+        Document document = new Document();
+        document.setName("Book Template");
+        document.setType(typeDataDAO.findById("pdf"));
+        document.setLocation("/Users/felipeg/Documents/Random/Book Template.pdf");
+        return document;
     }
 
     @Bean
-    public Type pdfType(){
-        return getTypeFromMap("pdf");
+    public Document doc2() {
+        Document document = new Document();
+        document.setName("Sample Contract");
+        document.setType(typeDataDAO.findById("pdf"));
+        document.setLocation("/Users/felipeg/Documents/Contracts/Sample Contract.pdf");
+        return document;
     }
 
     @Bean
-    public SearchEngine engine() {
-        SearchEngineService engine = new SearchEngineService();
-        return engine;
+    public Document doc3() {
+        Document document = new Document();
+        document.setName("Clustering with RabbitMQ");
+        document.setType(typeDataDAO.findById("note"));
+        document.setLocation("/Users/felipeg/Documents/Random/Clustering with RabbitMQ.txt");
+        return document;
     }
 
     @Bean
-    public DocumentDAO documentDAO() {
-        DocumentRepository documentDAO = new DocumentRepository();
-        List<Document> documents = new ArrayList<>();
-        documents.add(getDocumentFromMap("doc1"));
-        documents.add(getDocumentFromMap("doc2"));
-        documents.add(getDocumentFromMap("doc3"));
-        documents.add(getDocumentFromMap("doc4"));
-        documentDAO.setDocuments(documents);
-        return documentDAO;
+    public Document doc4() {
+        Document document = new Document();
+        document.setName("Pro Spring Security Book");
+        document.setType(typeDataDAO.findById("web"));
+        document.setLocation("http://www.apress.com/9781430248187");
+        return document;
     }
 
-    public MyDocumentsContext(){
+    @Bean
+    public Type pdf() {
         Type type = new Type();
         type.setName("PDF");
         type.setDesc("Portable Document Format");
         type.setExtension(".pdf");
-        Document document = new Document();
-        document.setName("Book Template");
-        document.setType(type);
-        document.setLocation("/Users/felipeg/Documents/Random/Book Template.pdf");
-        documents.put("doc1", document);
-        types.put("pdf",type);
-        document = new Document();
-        document.setName("Sample Contract");
-        document.setType(type);
-        document.setLocation("/Users/felipeg/Documents/Contracts/Sample Contract.pdf");
-        documents.put("doc2",document);
-        type = new Type();
+        return type;
+    }
+
+    @Bean
+    public Type note() {
+        Type type = new Type();
         type.setName("NOTE");
         type.setDesc("Text Notes");
         type.setExtension(".txt");
-        document = new Document();
-        document.setName("Clustering with RabbitMQ");
-        document.setType(type);
-        document.setLocation("/Users/felipeg/Documents/Random/Clustering with RabbitMQ.txt");
-        documents.put("doc3",document);
-        types.put("note",type);
-        type = new Type();
+        return type;
+    }
+
+    @Bean
+    public Type web() {
+        Type type = new Type();
         type.setName("WEB");
         type.setDesc("Web Link");
         type.setExtension(".url");
-        document = new Document();
-        document.setName("Pro Spring Security Book");
-        document.setType(type);
-        document.setLocation("http://www.apress.com/9781430248187");
-        documents.put("doc4",document);
-        types.put("web",type);
-    }
-
-    private Document getDocumentFromMap(String documentKey){
-        return documents.get(documentKey);
-    }
-    private Type getTypeFromMap(String typeKey){
-        return types.get(typeKey);
+        return type;
     }
 }

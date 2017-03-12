@@ -6,19 +6,17 @@ import com.apress.isf.spring.model.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class SearchEngineService implements SearchEngine {
     private static final Logger log = LoggerFactory.getLogger(SearchEngineService.class);
+
     @Autowired
     private DocumentDAO documentDAO;
-
-    public void setDocumentDAO(DocumentDAO documentDAO) {
-        log.info("Document DAO set: " + documentDAO);
-        this.documentDAO = documentDAO;
-    }
 
     @Override
     public List<Document> findByType(Type type) {
