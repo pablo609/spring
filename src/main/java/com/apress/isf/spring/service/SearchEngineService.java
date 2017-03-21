@@ -18,6 +18,9 @@ public class SearchEngineService implements SearchEngine {
     @Autowired
     private DocumentDAO documentDAO;
 
+    public SearchEngineService() {
+    }
+
     @Override
     public List<Document> findByType(Type type) {
         return listAll().stream().filter(document -> document.getType().getName().equals(type.getName())).collect(Collectors.toList());
@@ -26,5 +29,18 @@ public class SearchEngineService implements SearchEngine {
     @Override
     public List<Document> listAll() {
         return documentDAO.getAll();
+    }
+
+    @Override
+    public List<Document> findByLocation(String location) {
+        throw new UnsupportedOperationException("findByLocation not implemented yet");
+    }
+
+    public DocumentDAO getDocumentDAO() {
+        return documentDAO;
+    }
+
+    public void setDocumentDAO(DocumentDAO documentDAO) {
+        this.documentDAO = documentDAO;
     }
 }

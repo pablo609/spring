@@ -1,26 +1,25 @@
 package com.apress.isf.spring.config;
 
+import com.apress.isf.spring.aop.BeforeLoggingModule;
 import com.apress.isf.spring.data.TypeDataDAO;
 import com.apress.isf.spring.model.Document;
 import com.apress.isf.spring.model.Type;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 
 @Configuration
+@EnableAspectJAutoProxy
 @PropertySource("user.properties")
 @ComponentScan("com.apress.isf.spring")
 public class MyDocumentsContext {
-    private static final Logger log = LoggerFactory.getLogger(MyDocumentsContext.class);
+    @Autowired
+    private BeforeLoggingModule loggingModule;
 
     @Autowired
     private TypeDataDAO typeDataDAO;
 
     @Bean
+    @Profile("dev")
     public Document doc1() {
         Document document = new Document();
         document.setName("Book Template");

@@ -8,4 +8,5 @@ import java.util.List;
 public interface SearchEngine {
     List<Document> findByType(Type type);
     List<Document> listAll();
+    List<Document> findByLocation(String location);
 }
